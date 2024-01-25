@@ -5,12 +5,13 @@ import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
+import NavBar from "./modules/NavBar.js";
 
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
 
-import { get, post } from "../utilities";
+import { get, post } from "../utilities.js";
 
 /**
  * Define the "App" component
@@ -43,20 +44,23 @@ const App = () => {
   };
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Skeleton
-            path="/"
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-            userId={userId}
-          />
-        }
-      />
-      <Route path="*" element={<NotFound />} />
+    <>
+      <NavBar userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Skeleton
+              path="/"
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              userId={userId}
+            />
+          }
+        />
+        <Route path="*" element={<NotFound />} />
     </Routes>
+    </>
   );
 };
 
