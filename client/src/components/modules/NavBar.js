@@ -1,7 +1,12 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
-import { Box, AppBar, Toolbar, Typography, InputBase, SearchIcon,  } from "@mui/material";
 import { styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const GOOGLE_CLIENT_ID = "253844587820-qk45r2vinmg4avar9p8iqfa4vud4ij6t.apps.googleusercontent.com";
@@ -50,8 +55,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const NavBar = ({ userId, handleLogin, handleLogout }) => {
   return (
-    <Box sx={{ flexGrow: 1, zIndex: 999999}}>
-      <AppBar position="static" style={{background: "#AF7752"}}>
+    <Box sx={{ flexGrow: 1, zIndex: 1500}} position="relative">
+      <AppBar position="static" style={{background: "#AF7752", height:"120px"}}>
         <Toolbar>
           <Typography
               variant="h6"
@@ -61,7 +66,7 @@ const NavBar = ({ userId, handleLogin, handleLogout }) => {
             >
               World Dictionary
           </Typography>
-          <Box sx={{float:"right"}} justifyContent={"flex-end"}>
+          <Box sx={{float:"right"}}>
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               {userId ? (
                 <button
