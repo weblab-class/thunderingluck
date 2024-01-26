@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import NavBar from "./modules/NavBar.js";
+import SideBar from "./modules/SideBar.js";
 
 import "../utilities.css";
 
@@ -45,21 +46,24 @@ const App = () => {
 
   return (
     <>
-      <NavBar userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Skeleton
+      <NavBar userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}/>
+      <SideBar/>
+      <div className = "layout-container">
+          <Routes>
+            <Route
               path="/"
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-              userId={userId}
+              element={
+                <Skeleton
+                  path="/"
+                  handleLogin={handleLogin}
+                  handleLogout={handleLogout}
+                  userId={userId}
+                />
+              }
             />
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-    </Routes>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+      </div>
     </>
   );
 };
