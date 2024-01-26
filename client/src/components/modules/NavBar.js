@@ -66,7 +66,7 @@ const NavBar = ({ userId, handleLogin, handleLogout }) => {
             >
               World Dictionary
           </Typography>
-          <Box sx={{float:"right"}}>
+          <Box sx={{marginLeft:"auto"}} position="static" display="flex">
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               {userId ? (
                 <button
