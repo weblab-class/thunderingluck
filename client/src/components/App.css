@@ -4,3 +4,7 @@
     grid-template-columns: auto 300px;
     grid-column-gap: 30px;
   } */
+
+body {
+  background-color:#F8F1EC;
+}

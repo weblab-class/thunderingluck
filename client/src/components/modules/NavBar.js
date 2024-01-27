@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const NavBar = ({ userId, handleLogin, handleLogout }) => {
   return (
     <Box sx={{ flexGrow: 1, zIndex: 1500}} position="relative">
-      <AppBar position="static" style={{background: "#AF7752", height:"120px"}}>
+      <AppBar position="static" style={{background: "#C49F8F", height:"120px"}}>
         <Toolbar>
           <Typography
               variant="h6"
@@ -91,6 +91,7 @@ const NavBar = ({ userId, handleLogin, handleLogout }) => {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
+            
           </Search>
       </AppBar>
     </Box>

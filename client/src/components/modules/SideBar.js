@@ -8,8 +8,10 @@ import {
   ListItemButton,
   ListItemText,
   Button,
+  Box,
+  Typography,
 } from "@mui/material";
-
+import { Link } from "react-router-dom";
 
 
 export default function SideBar() {
@@ -26,8 +28,23 @@ export default function SideBar() {
       variant="permanent"
       anchor="right"
     >
-      <Toolbar />
+      <Box role="presentation" sx={{ p: 2 }} height="88px"/>
       <Divider />
+      <Box role="presentation" sx={{ p: 2 }} justifyContent="space-between">
+        <Typography variant="body-md" component="div" fontStyle="italic">
+          Contribute to the Dictionary!
+        </Typography>
+        <Box sx={{m:2}}>
+          <Button href="/newword" variant="contained" color="inherit"  style={{margin: '0 auto', display: "flex", borderRadius:28, width:196, height:56}} >
+            + Define a word
+          </Button>
+        </Box>
+        <Box sx={{m:2}}>
+          <Button href="/newlanguage" variant="contained" color="inherit"  style={{margin: '0 auto', display: "flex", borderRadius:28, width:196, height:56}} >
+            + Add your language
+          </Button>
+        </Box>
+      </Box>
     </Drawer>
   );
 }
