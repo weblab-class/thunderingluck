@@ -84,6 +84,24 @@ const NewStory = (props) => {
 };
 
 /**
+ * New Language is a New Post component for languages
+ *
+ * Proptypes
+ * @param {string} defaultText is the placeholder text
+ */
+const NewLanguage = (props) => {
+    const addLanguage = (value) => {
+      const body = { content: value };
+      post("/api/language", body).then(() => {
+        // display this story on the screen
+        window.location.assign("../");
+      });
+    };
+  
+    return <NewPostInput defaultText="New Language" onSubmit={addLanguage} />;
+  };
+
+/**
  * New Message is a New Message component for messages
  *
  * Proptypes
@@ -98,4 +116,4 @@ const NewMessage = (props) => {
   return <NewPostInput defaultText="New Message" onSubmit={sendMessage} />;
 };
 
-export { NewComment, NewStory, NewMessage, NewPostInput };
+export { NewComment, NewStory, NewMessage, NewPostInput, NewLanguage };

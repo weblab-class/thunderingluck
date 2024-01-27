@@ -1,12 +1,15 @@
 import React from "react";
 
+import {NewLanguage} from "../modules/NewLanguageInput";
+
+
 import "../../utilities.css";
 
 
 const NewLanguage = () => {
   return (
     <div>
-      <h1>new language</h1>
+      <NewLanguage/>
     </div>
   );
 };

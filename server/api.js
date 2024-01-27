@@ -12,6 +12,7 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 const Definition = require("./models/definition");
+const Language = require("./models/language");
 
 // import authentication library
 const auth = require("./auth");
@@ -44,6 +45,15 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
  
+router.post("/language", auth.ensureLoggedIn, (req, res) => {
+  const newLanguage = new Language({
+    name: req.body.content
+  });
+
+  newLanguage.save().then((language) => res.send(language));
+  User.updateOne({ _id: req.user._id }, { $push: { languages: newLanguage.name } }).then(console.log("updated user"));
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

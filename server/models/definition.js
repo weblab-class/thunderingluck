@@ -1,8 +1,19 @@
 const mongoose = require("mongoose");
 
 const DefinitionSchema = new mongoose.Schema({
-  name: String,
-  googleid: String,
+  id: String, 
+  creator_id: String,
+  creator_name: String, 
+  word: String,
+  definition: String,
+  is_verified: Bool,
+  language: String,
+  definition_language: String,
+  date: Date,
+  word_type: String,
+  example: String,
+  ipa: String,
+  
 });
 
 // compile model from schema
