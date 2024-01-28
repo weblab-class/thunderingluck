@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 
+// var scrollTop = (window.scrollY !== undefined) ? window.scrollY : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+
 
 export default function SideBar() {
   return (
@@ -22,12 +24,15 @@ export default function SideBar() {
         "& .MuiDrawer-paper": {
           width: 300,
           boxSizing: "border-box",
+          backgroundColor: "#F8F1EC",
+          // color: "#F8F1EC",
         },
+
       }}
       variant="permanent"
       anchor="right"
     >
-      <Box role="presentation" sx={{ p: 2 }} height="88px"/>
+      <Box sx={{ p: 2, height: '88px', display:'flex', flexDirection:'column'}}/>
       <Divider />
       <Box role="presentation" sx={{ p: 2 }} justifyContent="space-between">
         <Typography variant="body-md" component="div" fontStyle="italic">

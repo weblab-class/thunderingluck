@@ -93,7 +93,7 @@ const NewLanguage = (props) => {
     const addLanguage = (value) => {
       const body = { content: value };
       post("/api/language", body).then(() => {
-        // display this story on the screen
+        // redirect to home page
         window.location.assign("../");
       });
     };

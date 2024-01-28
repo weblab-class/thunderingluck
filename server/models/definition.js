@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const DefinitionSchema = new mongoose.Schema({
-  id: String, 
   creator_id: String,
   creator_name: String, 
   word: String,
