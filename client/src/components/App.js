@@ -16,6 +16,7 @@ import "./App.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities.js";
+import { Divider } from "@mui/material";
 
 /**
  * Define the "App" component
@@ -51,6 +52,7 @@ const App = () => {
     <>
       <NavBar userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}/>
       <SideBar/>
+      <Divider orientation="vertical" flexItem/>
       <div className = "layout-container">
           <Routes>
             <Route

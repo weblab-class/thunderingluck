@@ -17,9 +17,14 @@ import Button from "@mui/material/Button";
 
 export default function NewWord() {
   const [language, setLanguage] = React.useState("");
+  const [defnLanguage, setDefnLanguage] = React.useState("");
 
   const handleChange = (event) => {
     setLanguage(event.target.value);
+  };
+
+  const handleDefnChange = (event) => {
+    setDefnLanguage(event.target.value);
   };
 
   const categories = [
@@ -32,6 +37,8 @@ export default function NewWord() {
     "world",
     "all"
   ];
+
+  const handleSubmit = console.log("woof");
   return (
     <React.Fragment>
       <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%" }}>
@@ -150,9 +157,9 @@ export default function NewWord() {
                 <Select
                   labelId="definition_language"
                   id="definition_language"
-                  value={language}
+                  value={defnLanguage}
                   label="Language"
-                  onChange={handleChange}
+                  onChange={handleDefnChange}
                 >
                   {categories.map((item) => (
                     <MenuItem value={item}>{item}</MenuItem>
@@ -208,7 +215,7 @@ export default function NewWord() {
             <Grid item xs={12} sm={6} />
             <Grid item xs={12} sm={5} />
             <Grid item xs={12} sm={4}>
-              <Button variant="contained" sx={{ color: "#ff781f" }}>
+              <Button variant="contained" sx={{ color: "#ff781f" }} onClick={handleSubmit}>
                 Submit
               </Button>
             </Grid>

@@ -17,22 +17,33 @@ import {
 
 export default function SideBar() {
   return (
-    <Drawer
-      sx={{
-        width: 300,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: 300,
-          boxSizing: "border-box",
-          backgroundColor: "#F8F1EC",
-          // color: "#F8F1EC",
-        },
+    // <Drawer
+    //   sx={{
+    //     width: 300,
+    //     display: "flex",
+    //     flexDirection: "column",
+    //     // flexShrink: 0,
+    //     "& .MuiDrawer-paper": {
+    //       width: 300,
+    //       // boxSizing: "border-box",
+    //       backgroundColor: "#F8F1EC",
+    //       // color: "#F8F1EC",
+    //     },
 
-      }}
-      variant="permanent"
-      anchor="right"
-    >
-      <Box sx={{ p: 2, height: '88px', display:'flex', flexDirection:'column'}}/>
+    //   }}
+    //   variant="permanent"
+    //   anchor="right"
+    // >
+    <div style={{
+      height: "100%",
+      width: "200px",
+      position: "absolute",
+      right: 100,
+      top: 0,
+      paddingTop: "40px",
+      justifyContent:"center"
+    }}>
+      <Box sx={{ p: 2, height: '46px', display:'flex', flexDirection:'column'}}/>
       <Divider />
       <Box role="presentation" sx={{ p: 2 }} justifyContent="space-between">
         <Typography variant="body-md" component="div" fontStyle="italic">
@@ -49,6 +60,7 @@ export default function SideBar() {
           </Button>
         </Box>
       </Box>
-    </Drawer>
+    </div>
+    // </Drawer>
   );
 }
