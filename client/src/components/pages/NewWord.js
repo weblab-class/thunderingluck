@@ -12,36 +12,69 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Button from "@mui/material/Button";
+import { post } from "../../utilities";
+
+
+const handleSubmit = (w, d, e, wT, i, l, dL) => {
+  const body = {
+    word: w,
+    definition: d,
+    example: e,
+    word_type: wT,
+    ipa: i,
+    language: l,
+    definition_language: dL,
+  };
+  post("/api/definition", body).then(() => {
+    // redirect to home page
+    window.location.assign("../");
+  });
+}
 
 export default function NewWord() {
-  const [language, setLanguage] = React.useState("");
-  const [defnLanguage, setDefnLanguage] = React.useState("");
+  const categories = [
+    "MITspeak",
+    "English",
+  ];
 
-  const handleChange = (event) => {
+  const [language, setLanguage] = useState("");
+  const [defnLanguage, setDefnLanguage] = useState("");
+  const [word, setWord] = useState("");
+  const [definition, setDefinition] = useState("");
+  const [example, setExample] = useState("");
+  const [wordType, setWordType] = useState("");
+  const [ipa, setIpa] = useState("");
+
+
+  const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
   };
 
-  const handleDefnChange = (event) => {
+  const handleDefnLanguageChange = (event) => {
     setDefnLanguage(event.target.value);
   };
+  const handleWordChange = (event) => {
+    setWord(event.target.value);
+  };
+  const handleDefinitionChange = (event) => {
+    setDefinition(event.target.value);
+  }
+  const handleExampleChange = (event) => {
+    setExample(event.target.value);
+  }
+  const handleWordTypeChange = (event) => {
+    setWordType(event.target.value);
+  }
+  const handleIpaChange = (event) => {
+    setIpa(event.target.value);
+  }
 
-  const categories = [
-    "science",
-    "sports",
-    "business",
-    "politics",
-    "entertainment",
-    "technology",
-    "world",
-    "all"
-  ];
 
-  const handleSubmit = console.log("woof");
+
   return (
     <React.Fragment>
-      <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%" }}>
+      <Paper elevation={3} sx={{ marginRight: "10%", marginLeft: "15%" }}>
         <Box sx={{ padding: 5 }}>
           <Typography variant="h6" gutterBottom sx={{ paddingBottom: 5 }}>
             Define a word
@@ -68,6 +101,7 @@ export default function NewWord() {
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                onChange={handleWordChange}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -89,6 +123,7 @@ export default function NewWord() {
                 multiline
                 fullWidth
                 rows={4}
+                onChange={handleDefinitionChange}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -111,6 +146,7 @@ export default function NewWord() {
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                onChange={handleExampleChange}
               />
             </Grid>
             <Grid item xs={12} sm={3.5}>
@@ -132,7 +168,7 @@ export default function NewWord() {
                   id="word_language"
                   value={language}
                   label="Language"
-                  onChange={handleChange}
+                  onChange={handleLanguageChange}
                 >
                   {categories.map((item) => (
                     <MenuItem value={item}>{item}</MenuItem>
@@ -159,7 +195,7 @@ export default function NewWord() {
                   id="definition_language"
                   value={defnLanguage}
                   label="Language"
-                  onChange={handleDefnChange}
+                  onChange={handleDefnLanguageChange}
                 >
                   {categories.map((item) => (
                     <MenuItem value={item}>{item}</MenuItem>
@@ -187,6 +223,7 @@ export default function NewWord() {
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                onChange={handleIpaChange}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -210,12 +247,16 @@ export default function NewWord() {
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                onChange={handleWordTypeChange}
               />
             </Grid>
             <Grid item xs={12} sm={6} />
             <Grid item xs={12} sm={5} />
             <Grid item xs={12} sm={4}>
-              <Button variant="contained" sx={{ color: "#ff781f" }} onClick={handleSubmit}>
+              <Button variant="contained" 
+              sx={{ color: "#ff781f" }} 
+              onClick={() => handleSubmit(word, definition, example, wordType, ipa, language, defnLanguage)}
+              >
                 Submit
               </Button>
             </Grid>

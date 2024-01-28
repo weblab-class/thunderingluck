@@ -43,9 +43,9 @@ export default function SideBar() {
       paddingTop: "40px",
       justifyContent:"center"
     }}>
-      <Box sx={{ p: 2, height: '46px', display:'flex', flexDirection:'column'}}/>
-      <Divider />
-      <Box role="presentation" sx={{ p: 2 }} justifyContent="space-between">
+      <Box sx={{ p: 2, height: '60px', display:'flex', flexDirection:'column'}}/>
+      {/* <Divider /> */}
+      <Box role="presentation" sx={{ p: 1, backgroundColor:"white", borderRadius:"12px", width:"248px"}} justifyContent="space-between">
         <Typography variant="body-md" component="div" fontStyle="italic">
           Contribute to the Dictionary!
         </Typography>

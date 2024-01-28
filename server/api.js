@@ -54,6 +54,27 @@ router.post("/language", auth.ensureLoggedIn, (req, res) => {
   User.updateOne({ _id: req.user._id }, { $push: { languages: newLanguage.name } }).then(console.log("updated user"));
 });
 
+router.post("/definition", auth.ensureLoggedIn, (req, res) => {
+  verified = req.user.languages.includes(req.body.definition_language);
+  const newDefinition = new Definition({
+    creator_id: req.user._id,
+    creator_name: req.user.name,
+    word: req.body.word,
+    definition: req.body.definition,
+    is_verified: verified,
+    ipa: req.body.ipa,
+    language: req.body.language,
+    definition_language: req.body.definition_language,
+    date: Date.now(),
+    word_type: req.body.word_type,
+    example: req.body.example,
+    ipa: req.body.ipa,
+  });
+
+  newDefinition.save().then((definition) => res.send(definition));
+}
+);
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
