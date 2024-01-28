@@ -8,7 +8,7 @@ import Skeleton from "./pages/Skeleton.js";
 import NavBar from "./modules/NavBar.js";
 import SideBar from "./modules/SideBar.js";
 import NewWord from "./pages/NewWord.js";
-import NewLanguage from "./pages/NewLanguage.js";
+import NewLanguagePage from "./pages/NewLanguage.js";
 
 import "../utilities.css";
 import "./App.css";
@@ -66,7 +66,7 @@ const App = () => {
             />
             <Route path="*" element={<NotFound />} />
             <Route path="/newword" element={<NewWord />} />
-            <Route path="/newlanguage" element={<NewLanguage />} />
+            <Route path="/newlanguage" element={<NewLanguagePage />} />
           </Routes>
       </div>
     </>

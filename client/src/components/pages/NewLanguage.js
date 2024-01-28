@@ -6,7 +6,7 @@ import {NewLanguage} from "../modules/NewLanguageInput";
 import "../../utilities.css";
 
 
-const NewLanguage = () => {
+const NewLanguagePage = () => {
   return (
     <div>
       <NewLanguage/>
@@ -14,4 +14,4 @@ const NewLanguage = () => {
   );
 };
 
-export default NewLanguage;
+export default NewLanguagePage;

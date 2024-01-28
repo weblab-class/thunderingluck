@@ -6,7 +6,7 @@ const DefinitionSchema = new mongoose.Schema({
   creator_name: String, 
   word: String,
   definition: String,
-  is_verified: Bool,
+  is_verified: Boolean,
   language: String,
   definition_language: String,
   date: Date,

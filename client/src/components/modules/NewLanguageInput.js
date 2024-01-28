@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./NewPostInput.css";
+import "./NewLanguageInput.css";
 import { post } from "../../utilities";
 
 /**
