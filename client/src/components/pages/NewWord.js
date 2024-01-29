@@ -2,7 +2,7 @@ import "../../utilities.css";
 
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
-import { post } from "../../utilities";
+import { post, get } from "../../utilities";
 
 
 const handleSubmit = (w, d, e, wT, i, l, dL) => {
@@ -32,6 +32,8 @@ const handleSubmit = (w, d, e, wT, i, l, dL) => {
   });
 }
 
+
+
 export default function NewWord() {
   const categories = [
     "MITspeak",
@@ -45,7 +47,15 @@ export default function NewWord() {
   const [example, setExample] = useState("");
   const [wordType, setWordType] = useState("");
   const [ipa, setIpa] = useState("");
-
+  const [languages, setLanguages] = useState([]);
+  
+  useEffect(() => {
+    get("/api/whoami")
+    get("/api/languages").then((languages) => {
+      let languageNames = languages.map((language) => language.name);
+      setLanguages(languageNames);
+    });
+  }, []);
 
   const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
@@ -169,8 +179,9 @@ export default function NewWord() {
                   value={language}
                   label="Language"
                   onChange={handleLanguageChange}
+                  
                 >
-                  {categories.map((item) => (
+                  {languages.map((item) => (
                     <MenuItem value={item}>{item}</MenuItem>
                   ))}
                 </Select>
@@ -195,6 +206,7 @@ export default function NewWord() {
                   id="definition_language"
                   value={defnLanguage}
                   label="Language"
+                  // onOpen
                   onChange={handleDefnLanguageChange}
                 >
                   {categories.map((item) => (

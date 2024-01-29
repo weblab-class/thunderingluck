@@ -44,7 +44,9 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
- 
+
+// router.get("/ensureLoggedIn", (req, res) => { ensureLoggedIn(req, res)})
+
 router.post("/language", auth.ensureLoggedIn, (req, res) => {
   const newLanguage = new Language({
     name: req.body.content
@@ -52,6 +54,17 @@ router.post("/language", auth.ensureLoggedIn, (req, res) => {
 
   newLanguage.save().then((language) => res.send(language));
   User.updateOne({ _id: req.user._id }, { $push: { languages: newLanguage.name } }).then(console.log("updated user"));
+});
+
+router.get("/languages", (req, res) => {
+  Language.find({}).then((languages) => res.send(languages));
+});
+
+router.get("/definitions", (req, res) => {
+  if (req.query.word === "") 
+    {
+    Definition.find({}).then((definitions) => res.send(definitions));
+    }
 });
 
 router.post("/definition", auth.ensureLoggedIn, (req, res) => {

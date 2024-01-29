@@ -11,29 +11,11 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-
-// var scrollTop = (window.scrollY !== undefined) ? window.scrollY : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+// import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 
 export default function SideBar() {
   return (
-    // <Drawer
-    //   sx={{
-    //     width: 300,
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     // flexShrink: 0,
-    //     "& .MuiDrawer-paper": {
-    //       width: 300,
-    //       // boxSizing: "border-box",
-    //       backgroundColor: "#F8F1EC",
-    //       // color: "#F8F1EC",
-    //     },
-
-    //   }}
-    //   variant="permanent"
-    //   anchor="right"
-    // >
     <div style={{
       height: "100%",
       width: "200px",
@@ -44,13 +26,13 @@ export default function SideBar() {
       justifyContent:"center"
     }}>
       <Box sx={{ p: 2, height: '60px', display:'flex', flexDirection:'column'}}/>
-      {/* <Divider /> */}
       <Box role="presentation" sx={{ p: 1, backgroundColor:"white", borderRadius:"12px", width:"248px"}} justifyContent="space-between">
         <Typography variant="body-md" component="div" fontStyle="italic">
           Contribute to the Dictionary!
         </Typography>
         <Box sx={{m:2}}>
-          <Button href="/newword" variant="contained" color="inherit"  style={{margin: '0 auto', display: "flex", borderRadius:28, width:196, height:56}} >
+          <Button href="/newword" variant="contained" color="inherit"  style={{margin: '0 auto', display: "flex", borderRadius:28, width:196, height:56}}
+           >
             + Define a word
           </Button>
         </Box>
@@ -61,6 +43,20 @@ export default function SideBar() {
         </Box>
       </Box>
     </div>
-    // </Drawer>
   );
 }
+
+{/* <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+{userId ? (
+  <button
+    onClick={() => {
+      googleLogout();
+      handleLogout();
+    }}
+  >
+    Logout
+  </button>
+) : (
+  <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+)}
+</GoogleOAuthProvider> */}
