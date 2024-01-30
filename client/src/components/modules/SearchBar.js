@@ -14,6 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import "./SearchBar.css";
+import { set } from "core-js/core/dict";
 
 const Search = styled('div')(({ theme }) => ({
 
@@ -59,6 +60,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const SearchBar = () => {
+  [languages, setLanguages] = useState([]);
+  useEffect(() => {
+    get("/api/languages").then((languages) => {
+      setLanguages(languages);
+    });
+  }, []);
+
   const [word, setWord] = useState("");
   const handleWordChange = (event) => {
     setWord(event.target.value);
