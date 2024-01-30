@@ -68,6 +68,10 @@ router.get("/definitions", (req, res) => {
     }
   else {
     console.log("query");
+    Definition.find({ 
+      word: req.query.word, 
+      language: req.query.language, 
+      definition_language: req.query.definition_language }).then((definitions) => res.send(definitions));
   }
 });
 

@@ -8,20 +8,17 @@ import DCard from "../modules/Card.js";
 import {get} from "../../utilities";
 
 
-const Skeleton = () => {
+const Skeleton = (props) => {
   const [definitions, setDefinitions] = useState([]);
-  const query = {
-    word: "",
-    language: "",
-    definition_language: "",
-  };
+  const query = props.query
+  const setQuery = props.setQuery;
 
   useEffect(() => {
     get("/api/definitions", query).then((definitions) => {
       let reversedDefinitions = definitions.reverse();
       setDefinitions(reversedDefinitions);
     });
-  }, []);
+  }, [query]);
 
   let definitionsList = null;
   const hasDefinitions = definitions.length !== 0;

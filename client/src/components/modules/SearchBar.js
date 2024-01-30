@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,14 +12,17 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 import "./SearchBar.css";
-import { set } from "core-js/core/dict";
+import { get } from "../../utilities";
 
 const Search = styled('div')(({ theme }) => ({
 
   position: 'relative',
   display: 'inline-block',
+  float:"left",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
@@ -27,6 +30,7 @@ const Search = styled('div')(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
+  // marginBottom: theme.spacing(1),
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(5),
@@ -59,11 +63,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-const SearchBar = () => {
-  [languages, setLanguages] = useState([]);
+const SearchBar = (props) => {
+  const [languages, setLanguages] = useState([]);
+  const setQuery = props.setQuery;
+
   useEffect(() => {
     get("/api/languages").then((languages) => {
-      setLanguages(languages);
+      let languageNames = languages.map((language) => language.name);
+      setLanguages(languageNames);
+      console.log(languages)
     });
   }, []);
 
@@ -82,8 +90,18 @@ const SearchBar = () => {
     setDefnLanguage(event.target.value);
   }
 
+  const handleSearch = (word, language, defnLanguage, setQuery) => {
+    setQuery({
+      word: word,
+      language: language,
+      definition_language: defnLanguage,
+    });
+    // get("/api/definitions", query).then((definitions) => {
+    //   console.log(definitions);
+    // });
+  }
   return (
-  <div display="flex" className="center">
+  <div display="inline-block" className="center">
     <Search>
       <SearchIconWrapper>
         <SearchIcon />
@@ -95,29 +113,45 @@ const SearchBar = () => {
         autoComplete="on"
       />
     </Search>
-    <div style={{display:"inline-block"}}>
+    <div style={{display:"inline-block", float:"left"}}>
       <i>
         for a
       </i>
     </div>
+    <Search style={{}}>
+      <FormControl fullWidth size="small">
+        <Select
+          value={language}
+          displayEmpty
+          onChange={handleLanguageChange}
+        >
+          {languages.map((option) => (
+          <MenuItem key={option} value={option}>
+            {option}
+          </MenuItem>
+            ))}
+        </Select>
+      </FormControl>
+    </Search>
+    <div style={{display:"inline-block", float:"left"}}>
+      <i>
+        word in
+      </i>
+    </div>
     <Search>
-      <FormControl sx={{ m: 0, minWidth: 120 }}>
-          <Select
-            value={language}
-            onChange={handleLanguageChange}
-            displayEmpty
-            inputProps={{ 'aria-label': 'Language' }}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-      </Search>
-
+      <StyledInputBase
+        placeholder="language"
+        inputProps={{ 'aria-label': 'search' }}
+        autoComplete="on"
+        onChange = {handleDefnLanguageChange}
+      />
+    </Search>
+    <Button variant="contained" 
+      sx={{ color: "#ff781f" }} 
+      onClick={() => handleSearch(word, language, defnLanguage, setQuery)}
+      >
+        Go
+    </Button>
   </div>
   );
 };

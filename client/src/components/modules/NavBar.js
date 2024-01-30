@@ -13,7 +13,7 @@ import SearchBar from "./SearchBar.js";
 const GOOGLE_CLIENT_ID = "253844587820-qk45r2vinmg4avar9p8iqfa4vud4ij6t.apps.googleusercontent.com";
 
 
-const NavBar = ({ userId, handleLogin, handleLogout }) => {
+const NavBar = ({ userId, handleLogin, handleLogout, setQuery }) => {
   return (
     <Box sx={{ flexGrow: 1, zIndex: 1500}} position="relative">
       <AppBar position="static" style={{background: "#C49F8F", height:"120px"}}>
@@ -45,7 +45,7 @@ const NavBar = ({ userId, handleLogin, handleLogout }) => {
             </GoogleOAuthProvider>
           </Box>
         </Toolbar>
-        <SearchBar/>
+        <SearchBar setQuery = {setQuery}/>
       </AppBar>
     </Box>
   );

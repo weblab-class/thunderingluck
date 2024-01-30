@@ -23,6 +23,11 @@ import { Divider } from "@mui/material";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
+  const [query, setQuery] = useState({
+    word: "",
+    language: "",
+    definition_language: "",
+  });
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
@@ -50,7 +55,7 @@ const App = () => {
 
   return (
     <>
-      <NavBar userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}/>
+      <NavBar userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} setQuery={setQuery}/>
       <SideBar/>
       <Divider orientation="vertical" flexItem/>
       <div style={{marginRight:400}}>
@@ -60,9 +65,8 @@ const App = () => {
               element={
                 <Skeleton
                   path="/"
-                  handleLogin={handleLogin}
-                  handleLogout={handleLogout}
-                  userId={userId}
+                  query = {query}
+                  setQuery = {setQuery}
                 />
               }
             />
