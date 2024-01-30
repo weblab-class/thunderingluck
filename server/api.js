@@ -64,7 +64,11 @@ router.get("/definitions", (req, res) => {
   if (req.query.word === "") 
     {
     Definition.find({}).then((definitions) => res.send(definitions));
+    console.log("no query");
     }
+  else {
+    console.log("query");
+  }
 });
 
 router.post("/definition", auth.ensureLoggedIn, (req, res) => {

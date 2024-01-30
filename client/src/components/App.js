@@ -53,7 +53,7 @@ const App = () => {
       <NavBar userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}/>
       <SideBar/>
       <Divider orientation="vertical" flexItem/>
-      <div className = "layout-container">
+      <div style={{marginRight:400}}>
           <Routes>
             <Route
               path="/"

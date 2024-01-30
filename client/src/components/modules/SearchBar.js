@@ -1,75 +1,117 @@
-import React, {useState} from 'react'
+import React, {useState} from "react";
+import { styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+import "./SearchBar.css";
+
+const Search = styled('div')(({ theme }) => ({
+
+  position: 'relative',
+  display: 'inline-block',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(5),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
 
 
 const SearchBar = () => {
+  const [word, setWord] = useState("");
+  const handleWordChange = (event) => {
+    setWord(event.target.value);
+  }
 
- const [searchInput, setSearchInput] = useState("");
+  const [language, setLanguage] = useState("");
+  const handleLanguageChange = (event) => {
+    setLanguage(event.target.value);
+  }
 
- const countries = [
+  const [defnLanguage, setDefnLanguage] = useState("");
+  const handleDefnLanguageChange = (event) => {
+    setDefnLanguage(event.target.value);
+  }
 
-  { name: "Belgium", continent: "Europe" },
-  { name: "India", continent: "Asia" },
-  { name: "Bolivia", continent: "South America" },
-  { name: "Ghana", continent: "Africa" },
-  { name: "Japan", continent: "Asia" },
-  { name: "Canada", continent: "North America" },
-  { name: "New Zealand", continent: "Australasia" },
-  { name: "Italy", continent: "Europe" },
-  { name: "South Africa", continent: "Africa" },
-  { name: "China", continent: "Asia" },
-  { name: "Paraguay", continent: "South America" },
-  { name: "Usa", continent: "North America" },
-  { name: "France", continent: "Europe" },
-  { name: "Botswana", continent: "Africa" },
-  { name: "Spain", continent: "Europe" },
-  { name: "Senegal", continent: "Africa" },
-  { name: "Brazil", continent: "South America" },
-  { name: "Denmark", continent: "Europe" },
-  { name: "Mexico", continent: "South America" },
-  { name: "Australia", continent: "Australasia" },
-  { name: "Tanzania", continent: "Africa" },
-  { name: "Bangladesh", continent: "Asia" },
-  { name: "Portugal", continent: "Europe" },
-  { name: "Pakistan", continent:"Asia" },
+  return (
+  <div display="flex" className="center">
+    <Search>
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search…"
+        inputProps={{ 'aria-label': 'search' }}
+        onChange={handleWordChange}
+        autoComplete="on"
+      />
+    </Search>
+    <div style={{display:"inline-block"}}>
+      <i>
+        for a
+      </i>
+    </div>
+    <Search>
+      <FormControl sx={{ m: 0, minWidth: 120 }}>
+          <Select
+            value={language}
+            onChange={handleLanguageChange}
+            displayEmpty
+            inputProps={{ 'aria-label': 'Language' }}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+      </Search>
 
-];
-
-const handleChange = (e) => {
-  e.preventDefault();
-  setSearchInput(e.target.value);
-};
-
-if (searchInput.length > 0) {
-    countries.filter((country) => {
-    return country.name.match(searchInput);
-});
-}
-
-return <div>
-
-<input
-   type="search"
-   placeholder="Search here"
-   onChange={handleChange}
-   value={searchInput} />
-
-<table>
-
-{countries.map((country, index) => {
-
-<div>
-  <tr>
-    <td>{country.name}</td>
-    <td>{country.continent}</td>
-  </tr>
-</div>
-
-})}
-</table>
-
-</div>
-
-
+  </div>
+  );
 };
 
 export default SearchBar;

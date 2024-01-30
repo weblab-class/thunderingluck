@@ -3,6 +3,8 @@ import React, {useState, useEffect} from "react";
 import "../../utilities.css";
 import "./Skeleton.css";
 
+import DCard from "../modules/Card.js";
+
 import {get} from "../../utilities";
 
 
@@ -16,21 +18,38 @@ const Skeleton = () => {
 
   useEffect(() => {
     get("/api/definitions", query).then((definitions) => {
-      setDefinitions(definitions);
+      let reversedDefinitions = definitions.reverse();
+      setDefinitions(reversedDefinitions);
     });
   }, []);
 
   let definitionsList = null;
   const hasDefinitions = definitions.length !== 0;
   if (hasDefinitions) {
-    definitionsList = <div> yes </div>
+    definitionsList = definitions.map((definitionObj) => (
+      <DCard
+      key={`Card_${definitionObj._id}`}
+      _id={definitionObj._id}
+      creator_name={definitionObj.creator_name}
+      creator_id={definitionObj.creator_id}
+      word={definitionObj.word}
+      definition={definitionObj.definition}
+      is_verified={definitionObj.is_verified}
+      language={definitionObj.language}
+      definition_language={definitionObj.definition_language}
+      date={definitionObj.date}
+      word_type={definitionObj.word_type}
+      example={definitionObj.example}
+      ipa={definitionObj.ipa}
+      />
+    ));
   }
   else {
-    definitionsList = <div>There are no definitions in the dictionary.</div>
+    definitionsList = <div/>
   }
 
   return (
-    <div>
+    <div style={{marginLeft:100}}>
       {definitionsList}
     </div>
   );

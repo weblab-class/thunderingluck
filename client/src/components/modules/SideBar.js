@@ -20,7 +20,7 @@ export default function SideBar() {
       height: "100%",
       width: "200px",
       position: "absolute",
-      right: 100,
+      right: 180,
       top: 0,
       paddingTop: "40px",
       justifyContent:"center"
