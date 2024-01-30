@@ -164,7 +164,7 @@ const SearchBar = (props) => {
           disablePortal
           size="small"
           displayEmpty
-          inputValue = {defnLanguage}
+          // inputValue = {defnLanguage}
           onInputChange={(event, newInputValue) => {
             setDefnLanguage(newInputValue);
           }}
