@@ -14,12 +14,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Autocomplete from "@mui/material/Autocomplete";
 
 import "./SearchBar.css";
 import { get } from "../../utilities";
 
 const Search = styled('div')(({ theme }) => ({
-
   position: 'relative',
   display: 'inline-block',
   float:"left",
@@ -63,15 +63,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
+
 const SearchBar = (props) => {
   const [languages, setLanguages] = useState([]);
   const setQuery = props.setQuery;
+  const [defnLanguages, setDefnLanguages] = useState([]);
 
   useEffect(() => {
     get("/api/languages").then((languages) => {
-      let languageNames = languages.map((language) => language.name);
-      setLanguages(languageNames);
-      console.log(languages)
+      setLanguages(languages);
     });
   }, []);
 
@@ -81,14 +81,14 @@ const SearchBar = (props) => {
   }
 
   const [language, setLanguage] = useState("");
-  const handleLanguageChange = (event) => {
-    setLanguage(event.target.value);
-  }
+  // const handleLanguageChange = (event) => {
+  //   setLanguage(event.target.value);
+  // }
 
   const [defnLanguage, setDefnLanguage] = useState("");
-  const handleDefnLanguageChange = (event) => {
-    setDefnLanguage(event.target.value);
-  }
+  // const handleDefnLanguageChange = (event) => {
+  //   setDefnLanguage(event.target.value);
+  // }
 
   const handleSearch = (word, language, defnLanguage, setQuery) => {
     setQuery({
@@ -118,33 +118,65 @@ const SearchBar = (props) => {
         for a
       </i>
     </div>
-    <Search style={{}}>
-      <FormControl fullWidth size="small">
-        <Select
-          value={language}
+    <Search style={{width:"140px", display:"inline-block", border:0}}>
+        <Autocomplete
+        sx={{
+          pt: "1px",
+            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                border: "none"
+            }
+        }}
+          disablePortal
+          size="small"
           displayEmpty
-          onChange={handleLanguageChange}
+          inputValue = {language}
+          onInputChange={(event, newInputValue) => {
+            setLanguage(newInputValue);
+            console.log(language)
+            setDefnLanguages(languages.filter((item)=>(item.name==language))[0])
+          }
+        }
+          options={languages.map((language) => language.name)}
+          renderInput={(params) => <TextField {...params}  />}
         >
-          {languages.map((option) => (
-          <MenuItem key={option} value={option}>
-            {option}
-          </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
+        </Autocomplete>
     </Search>
     <div style={{display:"inline-block", float:"left"}}>
       <i>
         word in
       </i>
     </div>
-    <Search>
+    {/* <Search>
       <StyledInputBase
         placeholder="language"
         inputProps={{ 'aria-label': 'search' }}
-        autoComplete="on"
         onChange = {handleDefnLanguageChange}
       />
+    </Search> */}
+    <Search style={{width:"140px", display:"inline-block", border:0}}>
+        <Autocomplete
+        sx={{
+          pt: "1px",
+            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                border: "none"
+            }
+        }}
+          disablePortal
+          size="small"
+          displayEmpty
+          inputValue = {defnLanguage}
+          onInputChange={(event, newInputValue) => {
+            setDefnLanguage(newInputValue);
+          }}
+          onChange = {(event, newValue) => {
+            setDefnLanguage(newValue);
+        }}
+        
+          options={languages.filter((item) => item.name == language).map((item) => item.definition_languages)}
+          freeSolo = {language === "" ? true: false}
+          renderInput={(params) => <TextField {...params}  />}
+        >
+        </Autocomplete>
     </Search>
     <Button variant="contained" 
       sx={{ color: "#ff781f" }} 

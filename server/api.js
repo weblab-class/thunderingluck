@@ -51,7 +51,6 @@ router.post("/language", auth.ensureLoggedIn, (req, res) => {
   const newLanguage = new Language({
     name: req.body.content
   });
-
   newLanguage.save().then((language) => res.send(language));
   User.updateOne({ _id: req.user._id }, { $push: { languages: newLanguage.name } }).then(console.log("updated user"));
 });
@@ -61,17 +60,18 @@ router.get("/languages", (req, res) => {
 });
 
 router.get("/definitions", (req, res) => {
-  if (req.query.word === "") 
-    {
-    Definition.find({}).then((definitions) => res.send(definitions));
-    console.log("no query");
-    }
-  else {
+  word = req.query.word;
+  language = req.query.language;
+  definition_language = req.query.definition_language;
+  if (req.query.word === "") {word = { $exists: true };}
+  if (req.query.language === "") {language = { $exists: true };}
+  if (req.query.definition_language === "") {definition_language = { $exists: true };}
+   {
     console.log("query");
     Definition.find({ 
-      word: req.query.word, 
-      language: req.query.language, 
-      definition_language: req.query.definition_language }).then((definitions) => res.send(definitions));
+      word: word, 
+      language: language, 
+      definition_language: definition_language }).then((definitions) => res.send(definitions));
   }
 });
 
@@ -92,6 +92,7 @@ router.post("/definition", auth.ensureLoggedIn, (req, res) => {
     ipa: req.body.ipa,
   });
 
+  Language.updateOne({ name: req.body.language }, { $push: { definition_languages: req.body.definition_language } }).then(console.log("updated language"));
   newDefinition.save().then((definition) => res.send(definition));
 }
 );

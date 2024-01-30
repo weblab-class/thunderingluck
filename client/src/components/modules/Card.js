@@ -5,6 +5,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
+
 /**
  * Card is a component for displaying content like definitions
  *
@@ -62,7 +64,7 @@ export default function DCard(props) {
           {props.example}
         </Typography>
         <Typography display="inline" variant="body2">
-          a {props.language} word defined in {props.definition_language} by {props.creator_name} on {props.date}
+          a {props.language} word defined in {props.definition_language} by {props.creator_name} on {props.date.substring(0,10)}
         </Typography>
         {/* <div style={{
                 float:"right"
