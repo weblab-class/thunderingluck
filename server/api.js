@@ -63,11 +63,12 @@ router.get("/definitions", (req, res) => {
   word = req.query.word;
   language = req.query.language;
   definition_language = req.query.definition_language;
+  console.log(definition_language)
   if (req.query.word === "") {word = { $exists: true };}
   if (req.query.language === "") {language = { $exists: true };}
-  if (req.query.definition_language === "") {definition_language = { $exists: true };}
+  if (req.query.definition_language === "" || req.query.definition_language === "null" ) {definition_language = { $exists: true };}
    {
-    console.log("query");
+    console.log(word, language, definition_language,);
     Definition.find({ 
       word: word, 
       language: language, 

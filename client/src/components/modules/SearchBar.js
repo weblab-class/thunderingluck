@@ -110,7 +110,6 @@ const SearchBar = (props) => {
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
         onChange={handleWordChange}
-        autoComplete="on"
       />
     </Search>
     <div style={{display:"inline-block", float:"left"}}>
@@ -118,7 +117,7 @@ const SearchBar = (props) => {
         for a
       </i>
     </div>
-    <Search style={{width:"140px", display:"inline-block", border:0}}>
+    <Search style={{width:"180px", display:"inline-block", border:0}}>
         <Autocomplete
         sx={{
           pt: "1px",
@@ -137,7 +136,7 @@ const SearchBar = (props) => {
           }
         }
           options={languages.map((language) => language.name)}
-          renderInput={(params) => <TextField {...params}  />}
+          renderInput={(params) => <TextField {...params} placeholder="word language" />}
         >
         </Autocomplete>
     </Search>
@@ -153,7 +152,7 @@ const SearchBar = (props) => {
         onChange = {handleDefnLanguageChange}
       />
     </Search> */}
-    <Search style={{width:"140px", display:"inline-block", border:0}}>
+    <Search style={{width:"180px", display:"inline-block", border:0}}>
         <Autocomplete
         sx={{
           pt: "1px",
@@ -174,7 +173,7 @@ const SearchBar = (props) => {
         
           options={languages.filter((item) => item.name == language).map((item) => item.definition_languages)}
           freeSolo = {language === "" ? true: false}
-          renderInput={(params) => <TextField {...params}  />}
+          renderInput={(params) => <TextField {...params} placeholder="definition language"/>}
         >
         </Autocomplete>
     </Search>
