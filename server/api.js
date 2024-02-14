@@ -54,10 +54,18 @@ router.post("/language", auth.ensureLoggedIn, (req, res) => {
   newLanguage.save().then((language) => res.send(language));
   User.updateOne({ _id: req.user._id }, { $push: { languages: newLanguage.name } }).then(console.log("updated user"));
 });
-
+ 
 router.get("/languages", (req, res) => {
   Language.find({}).then((languages) => res.send(languages));
 });
+
+router.get("/defnLanguages", (req, res) => {
+  Language.find({name: req.query.content}).then((language) => res.send(language[0]));
+});
+
+router.get("/userlanguages"), (req, res) => {
+  User.find({ _id: req.query.userid }).then((user) => res.send(user.languages));
+};
 
 router.get("/definitions", (req, res) => {
   word = req.query.word;

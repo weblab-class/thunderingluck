@@ -48,6 +48,7 @@ export default function NewWord() {
   const [wordType, setWordType] = useState("");
   const [ipa, setIpa] = useState("");
   const [languages, setLanguages] = useState([]);
+  const [defnLanguages, setDefnLanguages] = useState([]);
   
   useEffect(() => {
     get("/api/whoami")
@@ -59,7 +60,9 @@ export default function NewWord() {
 
   const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
-  };
+    get("/api/defnLanguages", { content: event.target.value }).then((language) => {
+      setDefnLanguages(language.definition_languages);
+  })};
 
   const handleDefnLanguageChange = (event) => {
     setDefnLanguage(event.target.value);
@@ -208,8 +211,9 @@ export default function NewWord() {
                   label="Language"
                   // onOpen
                   onChange={handleDefnLanguageChange}
+                  freeSolo
                 >
-                  {categories.map((item) => (
+                  {defnLanguages.map((item) => (
                     <MenuItem value={item}>{item}</MenuItem>
                   ))}
                 </Select>
@@ -277,16 +281,6 @@ export default function NewWord() {
         </Box>
       </Paper>
     </React.Fragment>
-  );
-}
+    );
+  }
 
-
-// const NewWord = () => {
-//   return (
-//     <div>
-//       <h1>new word</h1>
-//     </div>
-//   );
-// };
-
-// export default NewWord;
