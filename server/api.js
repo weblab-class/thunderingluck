@@ -60,11 +60,20 @@ router.get("/languages", (req, res) => {
 });
 
 router.get("/existsLanguage", (req, res) => {
-  Language.exists({ name: req.query.content }).then((exists) => res.send(exists));
+  Language.exists({ name: req.query.content }).then((exists) => {
+    if (exists) {
+      resolve(true);
+    }
+    else{
+      resolve(false);
+    }
+    res.send(exists);
+  });
 });
 
 router.get("/defnLanguages", (req, res) => {
-  Language.findOne({name: req.query.content}).then((language) => res.send(language));
+  console.log("got it")
+  Language.find({name: req.query.content}).then((language) => res.send(language));
 });
 
 router.get("/userlanguages"), (req, res) => {

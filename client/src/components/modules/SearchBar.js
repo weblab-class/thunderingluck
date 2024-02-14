@@ -132,7 +132,9 @@ const SearchBar = (props) => {
           onInputChange={(event, newInputValue) => {
             setLanguage(newInputValue);
                 get("/api/defnLanguages", { content: newInputValue }).then((language) => {
-                    setDefnLanguages(language.definition_languages);
+                  if (language[0]) {
+                    setDefnLanguages(language[0].definition_languages);
+                  }
               // setDefnLanguages(languages.filter((item)=>(item.name==language))[0].definition_languages)
             })
           }

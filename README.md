@@ -94,3 +94,8 @@ webpack.config.js
 ```
 
 ## Good luck on your project :)
+
+bugs:
+
+- search bar only works on home page
+- cannot type in word language box

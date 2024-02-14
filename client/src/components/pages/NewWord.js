@@ -61,7 +61,7 @@ export default function NewWord() {
   const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
     get("/api/defnLanguages", { content: event.target.value }).then((language) => {
-      setDefnLanguages(language.definition_languages);
+      setDefnLanguages(language[0].definition_languages);
   })};
 
   const handleDefnLanguageChange = (event) => {
