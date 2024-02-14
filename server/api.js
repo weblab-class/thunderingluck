@@ -60,7 +60,7 @@ router.get("/languages", (req, res) => {
 });
 
 router.get("/defnLanguages", (req, res) => {
-  Language.find({name: req.query.content}).then((language) => res.send(language[0]));
+  Language.findOne({name: req.query.content}).then((language) => res.send(language));
 });
 
 router.get("/userlanguages"), (req, res) => {
@@ -100,9 +100,13 @@ router.post("/definition", auth.ensureLoggedIn, (req, res) => {
     example: req.body.example,
     ipa: req.body.ipa,
   });
-
-  Language.updateOne({ name: req.body.language }, { $push: { definition_languages: req.body.definition_language } }).then(console.log("updated language"));
+  Language.findOne({ name: req.body.language }).then((language) => {
+    if (!language.definition_languages.includes(req.body.definition_language)) {
+      Language.updateOne({ name: req.body.language }, { $push: { definition_languages: req.body.definition_language } }).then(console.log("updated language"));
+    }
+  // Language.updateOne({ name: req.body.language }, { $push: { definition_languages: req.body.definition_language } }).then(console.log("updated language"));
   newDefinition.save().then((definition) => res.send(definition));
+});
 }
 );
 
