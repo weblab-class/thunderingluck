@@ -59,6 +59,10 @@ router.get("/languages", (req, res) => {
   Language.find({}).then((languages) => res.send(languages));
 });
 
+router.get("/existsLanguage", (req, res) => {
+  Language.exists({ name: req.query.content }).then((exists) => res.send(exists));
+});
+
 router.get("/defnLanguages", (req, res) => {
   Language.findOne({name: req.query.content}).then((language) => res.send(language));
 });

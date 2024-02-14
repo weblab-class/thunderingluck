@@ -131,8 +131,10 @@ const SearchBar = (props) => {
           inputValue = {language}
           onInputChange={(event, newInputValue) => {
             setLanguage(newInputValue);
-            console.log(language)
-            setDefnLanguages(languages.filter((item)=>(item.name==language))[0])
+                get("/api/defnLanguages", { content: newInputValue }).then((language) => {
+                    setDefnLanguages(language.definition_languages);
+              // setDefnLanguages(languages.filter((item)=>(item.name==language))[0].definition_languages)
+            })
           }
         }
           options={languages.map((language) => language.name)}
@@ -171,7 +173,8 @@ const SearchBar = (props) => {
             setDefnLanguage(newValue);
         }}
         
-          options={languages.filter((item) => item.name == language).map((item) => item.definition_languages)}
+          // options={languages.filter((item) => item.name == language).map((item) => item.definition_languages)}
+          options={defnLanguages}
           freeSolo = {language === "" ? true: false}
           renderInput={(params) => <TextField {...params} placeholder="definition language"/>}
         >
