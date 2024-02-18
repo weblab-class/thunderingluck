@@ -45,7 +45,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-// router.get("/ensureLoggedIn", (req, res) => { ensureLoggedIn(req, res)})
+router.get("/ensureLoggedIn", (req, res) => { ensureLoggedIn(req, res)})
 
 router.post("/language", auth.ensureLoggedIn, (req, res) => {
   const newLanguage = new Language({
