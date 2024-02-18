@@ -8,6 +8,7 @@ import DCard from "../modules/Card.js";
 import {get} from "../../utilities";
 
 
+
 const Skeleton = (props) => {
   const [definitions, setDefinitions] = useState([]);
   const query = props.query
