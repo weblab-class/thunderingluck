@@ -13,6 +13,7 @@ const express = require("express");
 const User = require("./models/user");
 const Definition = require("./models/definition");
 const Language = require("./models/language");
+const Access = require("./models/access");
 
 // import authentication library
 const auth = require("./auth");
@@ -44,6 +45,16 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+router.get("/access", (req, res) => {
+  const newAccess = new Access({
+    date: Date.now()
+  });
+  newAccess.save().then((access) => {
+    res.send(access);
+    console.log("access logged");
+  });
+});
 
 router.get("/ensureLoggedIn", (req, res) => { ensureLoggedIn(req, res)})
 

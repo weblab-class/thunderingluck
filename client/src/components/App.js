@@ -36,6 +36,7 @@ const App = () => {
         setUserId(user._id);
       }
     });
+    get("/api/access");
   }, []);
 
   const handleLogin = (credentialResponse) => {
