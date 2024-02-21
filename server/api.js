@@ -98,14 +98,18 @@ router.get("/definitions", (req, res) => {
   console.log(definition);
   if (req.query.word === "" || req.query.word === undefined) {word = { $exists: true };}
   if (req.query.language === "") {language = { $exists: true };}
-  if (req.query.definition === "" || req.query.definition === undefined ) {definition = { $exists: true };}
-   {
-    console.log(word, language, definition);
-    Definition.find({ 
-      word: word, 
-      language: language, 
-      definition: {$regex: definition}}).then((definitions) => res.send(definitions));
+  if (req.query.definition === "" || req.query.definition === undefined ) {
+    definition = { $exists: true };
+    Definition.find({ word: word, language: language, definition: definition }).then((definitions) => res.send(definitions));
   }
+  else {
+  Definition.find({ 
+    word: word, 
+    language: language, 
+    definition: {$regex: definition}}).then((definitions) => res.send(definitions));
+  }
+  console.log(word, language, definition);
+
 });
 
 router.post("/definition", auth.ensureLoggedIn, (req, res) => {
