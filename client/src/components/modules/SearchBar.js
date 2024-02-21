@@ -85,20 +85,22 @@ const SearchBar = (props) => {
   //   setLanguage(event.target.value);
   // }
 
-  const [defnLanguage, setDefnLanguage] = useState("");
-  // const handleDefnLanguageChange = (event) => {
-  //   setDefnLanguage(event.target.value);
-  // }
+  const [searchField, setSearchField] = useState("");
 
-  const handleSearch = (word, language, defnLanguage, setQuery) => {
-    setQuery({
-      word: word,
-      language: language,
-      definition_language: defnLanguage,
-    });
-    // get("/api/definitions", query).then((definitions) => {
-    //   console.log(definitions);
-    // });
+
+  const handleSearch = (word, language, searchField, setQuery) => {
+    if (searchField === "dictionary entry"){
+      setQuery({
+        word: word,
+        language: language,
+      });
+    }
+    else if (searchField === "definition"){
+      setQuery({
+        language: language,
+        definition: word,
+      });
+    }
   }
   return (
   <div display="inline-block" className="center">
@@ -146,7 +148,7 @@ const SearchBar = (props) => {
     </Search>
     <div style={{display:"inline-block", float:"left"}}>
       <i>
-        word in
+        word by
       </i>
     </div>
     {/* <Search>
@@ -167,24 +169,23 @@ const SearchBar = (props) => {
           disablePortal
           size="small"
           displayEmpty
-          // inputValue = {defnLanguage}
           onInputChange={(event, newInputValue) => {
-            setDefnLanguage(newInputValue);
+            setSearchField(newInputValue);
           }}
           onChange = {(event, newValue) => {
-            setDefnLanguage(newValue);
+            setSearchField(newValue);
         }}
         
           // options={languages.filter((item) => item.name == language).map((item) => item.definition_languages)}
-          options={defnLanguages}
-          freeSolo = {language === "" ? true: false}
-          renderInput={(params) => <TextField {...params} placeholder="definition language"/>}
+          options={["dictionary entry", "definition"]}
+          // freeSolo = {language === "" ? true: false}
+          renderInput={(params) => <TextField {...params} placeholder="Search field"/>}
         >
         </Autocomplete>
     </Search>
     <Button variant="contained" 
       sx={{ color: "#ff781f" }} 
-      onClick={() => handleSearch(word, language, defnLanguage, setQuery)}
+      onClick={() => handleSearch(word, language, searchField, setQuery)}
       >
         Go
     </Button>

@@ -94,17 +94,17 @@ router.get("/userlanguages"), (req, res) => {
 router.get("/definitions", (req, res) => {
   word = req.query.word;
   language = req.query.language;
-  definition_language = req.query.definition_language;
-  console.log(definition_language)
-  if (req.query.word === "") {word = { $exists: true };}
+  definition = req.query.definition;
+  console.log(definition);
+  if (req.query.word === "" || req.query.word === undefined) {word = { $exists: true };}
   if (req.query.language === "") {language = { $exists: true };}
-  if (req.query.definition_language === "" || req.query.definition_language === "null" ) {definition_language = { $exists: true };}
+  if (req.query.definition === "" || req.query.definition === undefined ) {definition = { $exists: true };}
    {
-    console.log(word, language, definition_language,);
+    console.log(word, language, definition);
     Definition.find({ 
       word: word, 
       language: language, 
-      definition_language: definition_language }).then((definitions) => res.send(definitions));
+      definition: definition}).then((definitions) => res.send(definitions));
   }
 });
 
