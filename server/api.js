@@ -104,7 +104,7 @@ router.get("/definitions", (req, res) => {
     Definition.find({ 
       word: word, 
       language: language, 
-      definition: definition}).then((definitions) => res.send(definitions));
+      definition: {$regex: definition}}).then((definitions) => res.send(definitions));
   }
 });
 
